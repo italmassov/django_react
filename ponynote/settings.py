@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'webpack_loader',
     'django.contrib.staticfiles',
 ]
 
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'ponynote.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"templates"),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ponynote.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -118,3 +118,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+WEBPACK_LOADER = {
+    'DEFAULT':{
+        'BUNDLE_DIR_NAME':'bundles/',
+        'STATS_FILE':os.path.join(BASE_DIR, 'webpack-stats.dev.json'),
+        }
+}
