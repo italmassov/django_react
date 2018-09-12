@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+
 import {notes} from "../actions";
 
 class PonyNote extends Component{
@@ -21,9 +22,9 @@ selectForEdit = (id) => {
 submitNote = (e) => {
 	e.preventDefault();
 	if(this.state.updateNoteId == null){
-		this.prop.addNote(this.state.text);
+		this.props.addNote(this.state.text);
 	} else {
-		this.prop.updateNote(this.state.updateNoteId, this.state.text);
+		this.props.updateNote(this.state.updateNoteId, this.state.text);
 	}
 	this.resetForm();
 }
@@ -39,7 +40,7 @@ submitNote = (e) => {
 			value = {this.state.text}
 			placeholder = "Enter note here..."
 			onChange={(e)=>this.setState({text:e.target.value})}
-			requried />
+			required />
 		<button onClick={this.resetForm}>Reset</button>
 		<input type="submit" value="Save Note" />
 	</form>
@@ -52,7 +53,7 @@ submitNote = (e) => {
 			<tr key={`note_${id}`}>
 			   <td>{note.text}</td>
 			   <td><button onClick={()=>this.selectForEdit(id)}>edit</button></td>
-			   <td><button onclick={() => this.props.deleteNote(id)}>delete</button></td>
+			   <td><button onClick={() => this.props.deleteNote(id)}>delete</button></td>
 			</tr>
 		))}
 		</tbody>
@@ -74,7 +75,7 @@ const mapDispatchToProps = dispatch =>{
 			dispatch(notes.addNote(text));
 		},
 		updateNote: (id, text) => {
-			dispatch(notes.addNote(id,text));
+			dispatch(notes.updateNote(id,text));
 		},
 		deleteNote: (id) => {
 			dispatch(notes.deleteNote(id));
