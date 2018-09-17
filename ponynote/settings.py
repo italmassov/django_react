@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'webpack_loader',
+    'notes.apps.NotesConfig',
     'django.contrib.staticfiles',
 ]
 
