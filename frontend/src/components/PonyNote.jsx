@@ -22,14 +22,18 @@ selectForEdit = (id) => {
 submitNote = (e) => {
 	e.preventDefault();
 	if(this.state.updateNoteId == null){
-		this.props.addNote(this.state.text);
+		this.props.addNote(this.state.text).then(this.resetForm());
+
 	} else {
-		this.props.updateNote(this.state.updateNoteId, this.state.text);
+		this.props.updateNote(this.state.updateNoteId, this.state.text).then(this.resetForm);
 	}
-	this.resetForm();
+	}
+
+componentDidMount(){
+	this.props.fetchNotes();
 }
 
-	render(){
+render(){
    	return(
 	<div>
 	<h1>Welcome to PonyNote!</h1>
@@ -71,8 +75,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
 	return{
+		fetchNotes: () => {
+			dispatch(notes.fetchNotes());
+		},
 		addNote:(text) => {
-			dispatch(notes.addNote(text));
+			return	dispatch(notes.addNote(text));
 		},
 		updateNote: (id, text) => {
 			dispatch(notes.updateNote(id,text));
